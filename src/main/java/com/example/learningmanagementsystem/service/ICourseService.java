@@ -8,4 +8,6 @@ public interface ICourseService {
     List<Course> getAll();
 
     Course save(Course course);
+
+    Course getACourseById(int studentId);
 }
