@@ -1,9 +1,6 @@
 package com.example.learningmanagementsystem.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "enrollment")
 public class Enrollment {

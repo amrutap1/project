@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
@@ -77,7 +79,6 @@ public class UserController {
         LocalDate dueDate=assignCl.getDueDate();
         int courseId=assignCl.getCourseId();
         Assignment assignment=new Assignment();
-
         assignment.setAssignName(assignName);
         assignment.setDueDate(dueDate);
         Course c=iCourseService.findById(courseId);
@@ -103,38 +104,38 @@ public class UserController {
     }
 
     @PostMapping("/addEnroll")
-    public Enrollment AddEnroll(Enrollment enrollment) {
-        Enrollment c = iEnrollService.save(enrollment);
-        return c;
+    public Enrollment AddEnroll(@RequestBody EnrollCl enrollCl) {
+//        Enrollment c = iEnrollService.save(enrollment);
+//        return c;
+        int courseId = enrollCl.getCourseId();
+        int studentId = enrollCl.getStudentId();
+        Course c = iCourseService.findById(courseId);
+        User u = iUserService.findById(studentId);
+        Enrollment enrollment = new Enrollment();
+        enrollment.setCourse(c);
+        enrollment.setUser(u);
+        return iEnrollService.save(enrollment);
     }
-//        try{
-//        int enrollId=enrollCl.getEnrollId();
-//        int courseId=enrollCl.getCourseId();
-//        int studentId=enrollCl.getEnrollId();
-//        Course c=iCourseService.findById(courseId);
-//        User u=iUserService.findById(studentId);
-//        Enrollment enrollment = new Enrollment();
-//        enrollment.setCourse(c);
-//        enrollment.setUser(u);
-//        enrollment.setEnrollId(enrollId);
-//         iEnrollService.save(enrollment);
-//            return ResponseEntity.status(HttpStatus.CREATED).body("Data added successfully.");
-//    }
-//    catch (Exception e) {
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error.");
-//    }
 
-
-
+    @PostMapping("/addMsg")
+    public Messages AddMsg(@RequestBody MessageCl messageCl){
+        int senderId=messageCl.getSenderId();
+        int receiverId= messageCl.getReceiverId();
+        String content=messageCl.getContent();
+        Timestamp timestamp=messageCl.getTimestamp();
+        User u=iUserService.findById(senderId);
+        User u2=iUserService.findById(receiverId);
+        Messages messages=new Messages();
+        messages.setUser(u);
+        messages.setUsers(u2);
+        messages.setContent(content);
+        messages.setTimestamp(timestamp);
+        return iMessageServic.save(messages);
+    }
     @GetMapping("/getAllMsg")
     public List<Messages> getAllMsg() {
         List<Messages> messages=iMessageServic.getAllMsg();
         return messages;
-    }
-    @PostMapping("/addMsg")
-    public Messages save(Messages messages){
-        Messages c=iMessageServic.save(messages);
-        return c;
     }
     @GetMapping("/getSub")
     public List<Submission> getAllSub() {

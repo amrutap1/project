@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 //@AllArgsConstructor
 //@NoArgsConstructor
 //@Data
-
 @Table(name = "enrollCl")
 public class EnrollCl {
     int courseId;
-    int enrollId;
     int studentId;
 
     public int getCourseId() {
@@ -25,13 +23,7 @@ public class EnrollCl {
         this.courseId = courseId;
     }
 
-    public int getEnrollId() {
-        return enrollId;
-    }
 
-    public void setEnrollId(int enrollId) {
-        this.enrollId = enrollId;
-    }
 
     public int getStudentId() {
         return studentId;
@@ -44,9 +36,9 @@ public class EnrollCl {
     public EnrollCl() {
     }
 
-    public EnrollCl(int courseId, int enrollId, int studentId) {
+    public EnrollCl(int courseId, int studentId) {
         this.courseId = courseId;
-        this.enrollId = enrollId;
+
         this.studentId = studentId;
     }
 
@@ -54,7 +46,6 @@ public class EnrollCl {
     public String toString() {
         return "EnrollCl{" +
                 "courseId=" + courseId +
-                ", enrollId=" + enrollId +
                 ", studentId=" + studentId +
                 '}';
     }
