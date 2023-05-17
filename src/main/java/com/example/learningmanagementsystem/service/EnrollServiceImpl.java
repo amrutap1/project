@@ -20,8 +20,8 @@ public class EnrollServiceImpl implements IEnrollService  {
         return enrollments;
     }
     @Override
-    public Enrollment save(Enrollment enrollment){
-        Enrollment c=iEnrollRepo.save(enrollment);
+    public Enrollment save(Enrollment enrollCl){
+        Enrollment c=iEnrollRepo.save(enrollCl);
         return c;
     }
 

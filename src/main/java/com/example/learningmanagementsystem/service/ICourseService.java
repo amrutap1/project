@@ -10,4 +10,6 @@ public interface ICourseService {
     Course save(Course course);
 
     Course getACourseById(int studentId);
+
+    Course findById(int courseId);
 }

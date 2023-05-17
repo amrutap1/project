@@ -22,6 +22,11 @@ public class CourseServiceImpl implements ICourseService{
         Course c=iRepositoryCourse.save(course);
         return c;
     }
+    @Override
+    public Course findById(int courseId){
+        Course c=iRepositoryCourse.getById(courseId);
+        return c;
+    }
 
     @Override
     public Course getACourseById(int studentId){

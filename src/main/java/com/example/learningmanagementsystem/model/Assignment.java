@@ -21,7 +21,7 @@ public class Assignment {
 
     private LocalDate dueDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "courseId")
     private Course course;
 }

@@ -1,5 +1,6 @@
 package com.example.learningmanagementsystem.service;
 
+import com.example.learningmanagementsystem.model.Course;
 import com.example.learningmanagementsystem.model.User;
 import com.example.learningmanagementsystem.repository.IRepositoryUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,12 @@ public class UserServiceImpl implements IUserService {
     public List<User> getAll() {
         List<User> users=iRepositoryUser.findAll();
         return users;
+    }
+
+    @Override
+    public User findById(int Id){
+        User c=iRepositoryUser.getById(Id);
+        return c;
     }
     @Override
     public User save(User user){
