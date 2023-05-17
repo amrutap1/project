@@ -15,13 +15,14 @@ import java.time.LocalDate;
 public class Assignment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private  int assignId;
 
     private String assignName;
 
     private LocalDate dueDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "courseId")
     private Course course;
 }

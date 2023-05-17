@@ -73,12 +73,11 @@ public class UserController {
     @PostMapping("/addAssign")
      public Assignment AddAssign(@RequestBody AssignCl assignCl){
 //        Assignment c=iAssignService.save(assignment);
-        int assignId=assignCl.getAssignId();
         String assignName=assignCl.getAssignName();
         LocalDate dueDate=assignCl.getDueDate();
         int courseId=assignCl.getCourseId();
         Assignment assignment=new Assignment();
-        assignment.setAssignId(assignId);
+
         assignment.setAssignName(assignName);
         assignment.setDueDate(dueDate);
         Course c=iCourseService.findById(courseId);
@@ -104,26 +103,27 @@ public class UserController {
     }
 
     @PostMapping("/addEnroll")
-    public ResponseEntity<String> AddEnroll(@RequestBody EnrollCl enrollCl){
-//Enrollment c=iEnrollService.save(enrollCl);
-        try{
-        int enrollId=enrollCl.getEnrollId();
-        int courseId=enrollCl.getCourseId();
-        int studentId=enrollCl.getEnrollId();
-        Course c=iCourseService.findById(courseId);
-        User u=iUserService.findById(studentId);
-        Enrollment enrollment = new Enrollment();
-        enrollment.setCourse(c);
-        enrollment.setUser(u);
-        enrollment.setEnrollId(enrollId);
-         iEnrollService.save(enrollment);
+    public Enrollment AddEnroll(Enrollment enrollment) {
+        Enrollment c = iEnrollService.save(enrollment);
+        return c;
+    }
+//        try{
+//        int enrollId=enrollCl.getEnrollId();
+//        int courseId=enrollCl.getCourseId();
+//        int studentId=enrollCl.getEnrollId();
+//        Course c=iCourseService.findById(courseId);
+//        User u=iUserService.findById(studentId);
+//        Enrollment enrollment = new Enrollment();
+//        enrollment.setCourse(c);
+//        enrollment.setUser(u);
+//        enrollment.setEnrollId(enrollId);
+//         iEnrollService.save(enrollment);
+//            return ResponseEntity.status(HttpStatus.CREATED).body("Data added successfully.");
+//    }
+//    catch (Exception e) {
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error.");
+//    }
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Data added successfully.");
-    }
-    catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error.");
-    }
-}
 
 
     @GetMapping("/getAllMsg")

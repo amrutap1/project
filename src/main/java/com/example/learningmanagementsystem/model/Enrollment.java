@@ -4,20 +4,20 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 @Entity
 @Table(name = "enrollment")
 public class Enrollment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "enrollId")
     private int enrollId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "studentId")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "courseId")
     private Course course;
 
@@ -46,13 +46,16 @@ public class Enrollment {
     }
 
     public Enrollment(int enrollId, User user, Course course) {
+
         this.enrollId = enrollId;
         this.user = user;
         this.course = course;
     }
 
     public Enrollment() {
+        super();
     }
+
 
     @Override
     public String toString() {

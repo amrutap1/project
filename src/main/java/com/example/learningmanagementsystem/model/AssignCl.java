@@ -7,7 +7,6 @@ import java.time.LocalDate;
 @Table(name = "assigncl")
 public class AssignCl {
 
-    int assignId;
 
     String assignName;
 
@@ -24,13 +23,7 @@ public class AssignCl {
 
     int courseId;
 
-    public int getAssignId() {
-        return assignId;
-    }
 
-    public void setAssignId(int assignId) {
-        this.assignId = assignId;
-    }
 
     public String getAssignName() {
         return assignName;
@@ -53,8 +46,8 @@ public class AssignCl {
     public AssignCl() {
     }
 
-    public AssignCl(int assignId, String assignName, LocalDate dueDate, int courseId) {
-        this.assignId = assignId;
+    public AssignCl( String assignName, LocalDate dueDate, int courseId) {
+
         this.assignName = assignName;
         this.dueDate = dueDate;
         this.courseId = courseId;
@@ -63,7 +56,6 @@ public class AssignCl {
     @Override
     public String toString() {
         return "AssignCl{" +
-                "assignId=" + assignId +
                 ", assignName='" + assignName + '\'' +
                 ", dueDate='" + dueDate + '\'' +
                 ", courseId=" + courseId +
