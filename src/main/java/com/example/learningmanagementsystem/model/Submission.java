@@ -18,20 +18,38 @@ public class Submission {
 
     private String feedback;
 
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "studentId")
-    private User user;
+    private User studentId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "assignId")
-    private Assignment assignment;
+    private Assignment assignId;
+    public User getStudentId() {
+        return studentId;
+    }
 
-    public Submission(int subId, String grade, String feedback, User user, Assignment assignment) {
+    public void setStudentId(User studentId) {
+        this.studentId = studentId;
+    }
+
+    public Assignment getAssignId() {
+        return assignId;
+    }
+
+    public void setAssignId(Assignment assignId) {
+        this.assignId = assignId;
+    }
+
+
+
+    public Submission(int subId, String grade, String feedback, User studentId, Assignment assignId) {
         this.subId = subId;
         this.grade = grade;
         this.feedback = feedback;
-        this.user = user;
-        this.assignment = assignment;
+        this.studentId = studentId;
+        this.assignId = assignId;
     }
 
     public Submission() {
@@ -61,19 +79,4 @@ public class Submission {
         this.feedback = feedback;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Assignment getAssignment() {
-        return assignment;
-    }
-
-    public void setAssignment(Assignment assignment) {
-        this.assignment = assignment;
-    }
 }

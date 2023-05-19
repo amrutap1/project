@@ -1,11 +1,10 @@
 package com.example.learningmanagementsystem.controller;
 
 
+import com.example.learningmanagementsystem.exception.CourseExceptionHandler;
 import com.example.learningmanagementsystem.model.*;
 import com.example.learningmanagementsystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
@@ -46,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/addCourse")
-    Course addCourse(@RequestBody Course course){
+    Course addCourse(@RequestBody Course course) throws CourseExceptionHandler {
         Course c=iCourseService.save(course);
         return c;
     }
@@ -127,7 +126,7 @@ public class UserController {
         User u2=iUserService.findById(receiverId);
         Messages messages=new Messages();
         messages.setUser(u);
-        messages.setUsers(u2);
+        messages.setReceiverId(u2);
         messages.setContent(content);
         messages.setTimestamp(timestamp);
         return iMessageServic.save(messages);
@@ -147,4 +146,8 @@ public class UserController {
         Submission c=iSubmissionService.save(submission);
         return c;
     }
+
+
+
+
 }

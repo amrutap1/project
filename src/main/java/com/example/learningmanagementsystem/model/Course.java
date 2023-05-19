@@ -11,13 +11,14 @@ import java.time.LocalDate;
 public class Course {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "courseId")
     private int courseId;
 
     @Column(name = "courseName")
     private String courseName;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "teacherId")
     private User user;
 

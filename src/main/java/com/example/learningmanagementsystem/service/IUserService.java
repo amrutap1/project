@@ -10,5 +10,7 @@ public interface IUserService {
 
     User save(User user);
 
+    List<User> getAlLTecher();
+
     User findById(int studentId);
 }

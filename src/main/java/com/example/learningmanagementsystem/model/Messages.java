@@ -17,14 +17,14 @@ public class Messages {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int msgId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "senderId")
 
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "receiverId")
-    private User users;
+    private User receiverId;
 
     private  String content;
 
@@ -33,10 +33,10 @@ public class Messages {
     public Messages() {
     }
 
-    public Messages(int msgId, User user, User users, String content, Timestamp timestamp) {
+    public Messages(int msgId, User user, User receiverId, String content, Timestamp timestamp) {
         this.msgId = msgId;
         this.user = user;
-        this.users = users;
+        this.receiverId = receiverId;
         this.content = content;
         this.timestamp = timestamp;
     }
@@ -58,11 +58,11 @@ public class Messages {
     }
 
     public User getUsers() {
-        return users;
+        return receiverId;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setReceiverId(User receiverId) {
+        this.receiverId = receiverId;
     }
 
     public String getContent() {

@@ -3,7 +3,6 @@ package com.example.learningmanagementsystem.model;
 
 import jakarta.persistence.Table;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Table
@@ -12,12 +11,10 @@ public class MessageCl {
     int senderId;
     int receiverId;
     String content;
-
     Timestamp timestamp;
 
     public MessageCl() {
     }
-
 
     public MessageCl(int senderId, int receiverId, String content, Timestamp timestamp) {
         this.senderId = senderId;

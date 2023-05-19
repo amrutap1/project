@@ -23,4 +23,10 @@ public class SubmissionService implements ISubmissionService {
         Submission c=iSubmissionRepo.save(submission);
         return c;
     }
+
+    @Override
+    public Submission findById(int subId){
+
+        return iSubmissionRepo.findById(subId).orElse(null);
+    }
 }

@@ -23,4 +23,9 @@ public class AssignService implements IAssignService {
         Assignment c=iAssignRepo.save(assignment);
         return c;
     }
+
+    @Override
+    public Assignment findById(int assignId){
+        return iAssignRepo.findById(assignId).orElse(null);
+    }
 }

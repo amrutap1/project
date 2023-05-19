@@ -8,4 +8,6 @@ import java.util.List;
 public interface ISubmissionService {
     List<Submission> getAllSub();
     Submission save(Submission submission);
+
+    Submission findById(int subId);
 }

@@ -14,11 +14,11 @@ public class Classes {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int classId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "teacherId")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "courseId")
     private Course course;
 
