@@ -1,10 +1,18 @@
 package com.example.learningmanagementsystem.controller;
 
 
+import com.example.learningmanagementsystem.dto.AssignCl;
+import com.example.learningmanagementsystem.dto.ClassCl;
+import com.example.learningmanagementsystem.dto.EnrollCl;
+import com.example.learningmanagementsystem.dto.MessageCl;
+import com.example.learningmanagementsystem.exception.AssignExceptionHandler;
+import com.example.learningmanagementsystem.exception.ClassExceptionHandler;
 import com.example.learningmanagementsystem.exception.CourseExceptionHandler;
+import com.example.learningmanagementsystem.exception.SubExceptionHandler;
 import com.example.learningmanagementsystem.model.*;
 import com.example.learningmanagementsystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
@@ -72,7 +80,7 @@ public class UserController {
         return assignments;
     }
     @PostMapping("/addAssign")
-     public Assignment AddAssign(@RequestBody AssignCl assignCl){
+     public Assignment AddAssign( @RequestBody  AssignCl assignCl) {
 //        Assignment c=iAssignService.save(assignment);
         String assignName=assignCl.getAssignName();
         LocalDate dueDate=assignCl.getDueDate();
@@ -91,9 +99,21 @@ public class UserController {
         return classes;
     }
     @PostMapping("/addClass")
-    Classes AddAssign(@RequestBody Classes classes){
-        Classes c=iClassesService.save(classes);
-        return c;
+    Classes AddClass(@RequestBody ClassCl classCl) throws ClassExceptionHandler {
+//        Classes c=iClassesService.save(classes);
+//        return c;
+        int courseId=classCl.getCourseId();
+        int teacherId=classCl.getTeacherId();
+        Time startTime=classCl.getStartTime();
+        Time endTime=classCl.getEndTime();
+        Course c=iCourseService.findById(courseId);
+        User u=iUserService.findById(teacherId);
+        Classes classes=new Classes();
+        classes.setCourse(c);
+        classes.setUser(u);
+        classes.setStartTime(startTime);
+        classes.setEndTime(endTime);
+        return iClassesService.save(classes);
     }
 
     @GetMapping("/getAllEnroll")
@@ -142,12 +162,13 @@ public class UserController {
         return submissions;
     }
     @PostMapping("/addSub")
-    public Submission save(Submission submission){
+    public Submission AddSub(Submission submission) throws SubExceptionHandler {
         Submission c=iSubmissionService.save(submission);
         return c;
     }
-
-
-
-
+    @GetMapping("/gradeById")
+    public ResponseEntity<List<Submission>> getStudentGrades(@PathVariable("studentId") Long studentId) {
+        List<Submission> studentGrades = iSubmissionService.getGradesByStudentId(studentId);
+        return ResponseEntity.ok(studentGrades);
+    }
 }

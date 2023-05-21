@@ -13,4 +13,8 @@ public interface IUserService {
     List<User> getAlLTecher();
 
     User findById(int studentId);
+
+//    List<User> getEnrolledStudents(Long teacherId);
+
+    String check(String userName, String password, String role);
 }

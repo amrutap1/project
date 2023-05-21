@@ -16,4 +16,9 @@ public interface IRepositoryUser extends JpaRepository <User,Integer>{
             "select * from dbproject.user where role=TEACHER",nativeQuery = true)
     public List<User> getAllTeacher();
 
+    User findByUserName(String userName);
+
+    User findByUserNameAndPassword(String userName, String password);
+
+
 }

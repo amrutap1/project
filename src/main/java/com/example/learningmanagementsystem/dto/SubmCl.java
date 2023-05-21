@@ -1,4 +1,4 @@
-package com.example.learningmanagementsystem.model;
+package com.example.learningmanagementsystem.dto;
 
 import jakarta.persistence.Table;
 

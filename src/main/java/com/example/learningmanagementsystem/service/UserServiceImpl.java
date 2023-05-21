@@ -36,4 +36,17 @@ public class UserServiceImpl implements IUserService {
         return iRepositoryUser.findById(studentId).orElse(null);
     }
 
+//    @Override
+//
+//    public List<User> getEnrolledStudents(Long teacherId) {
+//        return iRepositoryUser.findByTeacherId(teacherId);
+//    }
+    @Override
+    public String check(String userName, String password, String role){
+        User user = iRepositoryUser.findByUserNameAndPassword(userName, password);
+        if(user != null && user.getRole().equals(role)){
+            return "success";
+        }
+        return "failure";
+    }
 }

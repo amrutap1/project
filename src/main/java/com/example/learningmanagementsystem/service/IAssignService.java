@@ -1,6 +1,8 @@
 package com.example.learningmanagementsystem.service;
 
+import com.example.learningmanagementsystem.exception.AssignExceptionHandler;
 import com.example.learningmanagementsystem.model.Assignment;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -11,7 +13,10 @@ public interface IAssignService {
 
 
 
-    Assignment save(Assignment assignment);
+    Assignment save(Assignment assignment) ;
 
     Assignment findById(int assignId);
+
+
+    void deleteById(int assignId);
 }

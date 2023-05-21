@@ -30,7 +30,7 @@ public class CourseServiceImpl implements ICourseService{
 //        int flag=0;
 //        for (User user:teacher){
 //           if( user.getRole().equals(UserRole.TEACHER))
-//        }
+//        }   for checking teacher id from user table
         User user=repositoryUser.findById(course.getUser().getId()).orElse(null);
         if (user.getRole().equals(UserRole.TEACHER)) {
             course.getUser().setId(user.getId());
