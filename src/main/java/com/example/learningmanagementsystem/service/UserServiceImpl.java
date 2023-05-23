@@ -1,5 +1,6 @@
 package com.example.learningmanagementsystem.service;
 
+import com.example.learningmanagementsystem.Enum.UserRole;
 import com.example.learningmanagementsystem.model.User;
 import com.example.learningmanagementsystem.repository.IRepositoryUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,22 +32,37 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public  List<User> getAllStudent(){
+        return iRepositoryUser.getAllStudent();
+    }
+
+    @Override
     public User findById(int studentId){
 
         return iRepositoryUser.findById(studentId).orElse(null);
     }
-
-//    @Override
-//
-//    public List<User> getEnrolledStudents(Long teacherId) {
-//        return iRepositoryUser.findByTeacherId(teacherId);
-//    }
     @Override
-    public String check(String userName, String password, String role){
-        User user = iRepositoryUser.findByUserNameAndPassword(userName, password);
-        if(user != null && user.getRole().equals(role)){
-            return "success";
-        }
-        return "failure";
+    public User findByUserNameAndPassword(String userName, String password) {
+        return iRepositoryUser.findByUserNameAndPassword(userName, password);
     }
+
+    @Override
+    public String check(String userName, String password, String role) {
+    User user = iRepositoryUser.findByUserNameAndPassword(userName, password);
+        System.out.println(user);
+    if (user != null && user.getRole().equals(UserRole.valueOf(role)) ){
+//      if(iRepositoryUser.equals("amruta") && iRepositoryUser.equals("Pass@123") && iRepositoryUser.equals("STUDENT")){
+        return "success";
+    }
+    return "failure";
+}
+
+
+
+
+//
+//@Override
+//    public  User findByUserNameAndPassword(String userName, String password){
+//        return iRepositoryUser.findByUserNameAndPassword(userName, password);
+//    }
 }

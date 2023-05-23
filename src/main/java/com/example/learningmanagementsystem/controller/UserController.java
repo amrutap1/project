@@ -1,10 +1,7 @@
 package com.example.learningmanagementsystem.controller;
 
 
-import com.example.learningmanagementsystem.dto.AssignCl;
-import com.example.learningmanagementsystem.dto.ClassCl;
-import com.example.learningmanagementsystem.dto.EnrollCl;
-import com.example.learningmanagementsystem.dto.MessageCl;
+import com.example.learningmanagementsystem.dto.*;
 import com.example.learningmanagementsystem.exception.AssignExceptionHandler;
 import com.example.learningmanagementsystem.exception.ClassExceptionHandler;
 import com.example.learningmanagementsystem.exception.CourseExceptionHandler;
@@ -53,14 +50,23 @@ public class UserController {
     }
 
     @PostMapping("/addCourse")
-    Course addCourse(@RequestBody Course course) throws CourseExceptionHandler {
-        Course c=iCourseService.save(course);
-        return c;
+    Course addCourse(@RequestBody CourseCl courseCl) throws CourseExceptionHandler {
+        String courseName=courseCl.getCourseName();
+        int teacherId=courseCl.getTeacherId();
+        LocalDate startDate=courseCl.getStartDate();
+        LocalDate endDate=courseCl.getEndDate();
+        User u=iUserService.findById(teacherId);
+        Course course=new Course();
+        course.setCourseName(courseName);
+        course.setStartDate(startDate);
+        course.setEndDate(endDate);
+        course.setUser(u);
+        return iCourseService.save(course);
     }
 
     @GetMapping("/getAllUser")
     List<User> getUser(){
-        List<User> users= iUserService.getAll();
+        List<User> users= iUserService.getAllStudent();
         return users;
     }
     @PostMapping("/addUser")
@@ -80,7 +86,7 @@ public class UserController {
         return assignments;
     }
     @PostMapping("/addAssign")
-     public Assignment AddAssign( @RequestBody  AssignCl assignCl) {
+     public Assignment AddAssign( @RequestBody  AssignCl assignCl) throws AssignExceptionHandler {
 //        Assignment c=iAssignService.save(assignment);
         String assignName=assignCl.getAssignName();
         LocalDate dueDate=assignCl.getDueDate();
@@ -166,9 +172,10 @@ public class UserController {
         Submission c=iSubmissionService.save(submission);
         return c;
     }
-    @GetMapping("/gradeById")
-    public ResponseEntity<List<Submission>> getStudentGrades(@PathVariable("studentId") Long studentId) {
-        List<Submission> studentGrades = iSubmissionService.getGradesByStudentId(studentId);
-        return ResponseEntity.ok(studentGrades);
+    @GetMapping("/{studentId}/grades")
+    public List<Submission> getGradesByStudentId(@PathVariable("studentId") User student) {
+        return iSubmissionService.getGradesByStudent(student);
     }
+
+
 }

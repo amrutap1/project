@@ -1,6 +1,8 @@
 package com.example.learningmanagementsystem.service;
 
+import com.example.learningmanagementsystem.exception.AssignExceptionHandler;
 import com.example.learningmanagementsystem.model.Assignment;
+import com.example.learningmanagementsystem.model.Course;
 import com.example.learningmanagementsystem.repository.IAssignRepo;
 import com.example.learningmanagementsystem.repository.IRepositoryCourse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class AssignService implements IAssignService {
         return assignments;
     }
     @Override
-    public Assignment save(Assignment assignment) {
+    public Assignment save(Assignment assignment) throws AssignExceptionHandler {
         Assignment c=iAssignRepo.save(assignment);
         return c;
 //        Course course=repositoryCourse.findById(assignment.getCourse().getCourseId()).orElse(null);

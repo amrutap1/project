@@ -1,3 +1,4 @@
+
 package com.example.learningmanagementsystem.controller;
 
 
@@ -28,6 +29,8 @@ public class TeacherController {
     @Autowired
     IAssignService assignService;
 
+    @Autowired
+    IEnrollService iEnrollService;
     @Autowired
     IUserService userService;
     @Autowired
@@ -76,6 +79,14 @@ public class TeacherController {
         }
 
     }
+
+
+    @GetMapping("/{courseId}/enrollments")
+    public List<Enrollment> getEnrollmentsByCourseId(@PathVariable Long courseId) {
+        return iEnrollService.getEnrollmentsByCourseId(courseId);
+    }
+
+
 
 //    @GetMapping("/teachers/{teacherId}/students")
 //    public List<User> getEnrolledStudents(@PathVariable Long teacherId) {

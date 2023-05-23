@@ -1,9 +1,7 @@
 package com.example.learningmanagementsystem.service;
 
 import com.example.learningmanagementsystem.Enum.UserRole;
-import com.example.learningmanagementsystem.exception.CourseExceptionHandler;
 import com.example.learningmanagementsystem.exception.SubExceptionHandler;
-import com.example.learningmanagementsystem.model.Course;
 import com.example.learningmanagementsystem.model.Submission;
 import com.example.learningmanagementsystem.model.User;
 import com.example.learningmanagementsystem.repository.IRepositoryUser;
@@ -46,8 +44,8 @@ public class SubmissionService implements ISubmissionService {
     }
 
     @Override
-    public List<Submission> getGradesByStudentId(Long studentId) {
-        return iSubmissionRepo.findByStudentId(studentId);
+    public List<Submission> getGradesByStudent(User student) {
+        return iSubmissionRepo.findByStudentId(student);
     }
 
     @Override

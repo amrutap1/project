@@ -13,7 +13,7 @@ public interface IAssignService {
 
 
 
-    Assignment save(Assignment assignment) ;
+    Assignment save(Assignment assignment) throws AssignExceptionHandler;
 
     Assignment findById(int assignId);
 

@@ -9,4 +9,7 @@ public interface IEnrollService {
 
 
     Enrollment save(Enrollment enrollCl);
+
+
+    List<Enrollment> getEnrollmentsByCourseId(Long courseId);
 }

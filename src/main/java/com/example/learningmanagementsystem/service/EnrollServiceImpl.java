@@ -25,4 +25,9 @@ public class EnrollServiceImpl implements IEnrollService  {
         return c;
     }
 
+    @Override
+    public List<Enrollment> getEnrollmentsByCourseId(Long courseId) {
+        return iEnrollRepo.findByCourseId(courseId);
+}
+
 }
