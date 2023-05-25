@@ -19,7 +19,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class TeacherController {
 
-@Autowired
+    @Autowired
     IClassesService classesService;
     @Autowired
     ISubmissionService submissionService;

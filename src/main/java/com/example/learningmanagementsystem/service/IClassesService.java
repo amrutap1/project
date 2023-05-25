@@ -8,6 +8,8 @@ import java.util.List;
 public interface IClassesService {
     List<Classes> getAllClass();
 
+//    Classes save(Classes classes) throws ClassExceptionHandler;
+
     Classes save(Classes classes) throws ClassExceptionHandler;
 
     String deleteById(int classId);
