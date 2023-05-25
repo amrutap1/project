@@ -1,6 +1,7 @@
 package com.example.learningmanagementsystem.service;
 
 import com.example.learningmanagementsystem.Enum.UserRole;
+import com.example.learningmanagementsystem.dto.ClassCl;
 import com.example.learningmanagementsystem.exception.ClassExceptionHandler;
 import com.example.learningmanagementsystem.model.Classes;
 import com.example.learningmanagementsystem.model.Course;
@@ -31,66 +32,28 @@ public class ClassesServiceImpl implements IClassesService{
 
 
     @Override
-    public Classes save(Classes classes) throws ClassExceptionHandler {
+    public Classes save(ClassCl classCl) throws ClassExceptionHandler {
 //        Classes classes1=iclassesRepo.save(classes);
 //        return classes1;
-        User user=repositoryUser.findById(classes.getUser().getId()).orElse(null);
-        Course course=iRepositoryCourse.findById(classes.getCourse().getCourseId()).orElse(null);
+        User user=repositoryUser.findById(classCl.getTeacherId()).orElse(null);
+        Course course=iRepositoryCourse.findById(classCl.getCourseId()).orElse(null);
         if (user.getRole().equals(UserRole.TEACHER)) {
-            classes.getUser().setId(user.getId());
-            classes.getUser().setUserName(user.getUserName());
-            classes.getUser().setPassword(user.getPassword());
-            classes.getUser().setRole(user.getRole());
-            classes.getCourse().setCourseId(course.getCourseId());
-            classes.getCourse().setCourseName(course.getCourseName());
-            classes.getCourse().setUser(course.getUser());
-            classes.getCourse().setStartDate(course.getStartDate());
-            classes.getCourse().setEndDate(course.getEndDate());
-            Classes c = iclassesRepo.save(classes);
-            return c;
+            Classes c=new Classes();
+            c.setUser(user);
+            c.setCourse(course);
+            c.setEndTime(classCl.getEndTime());
+            c.setStartTime(classCl.getStartTime());
+           return   iclassesRepo.save(c);
+
         }else {
 
             throw new ClassExceptionHandler();
         }
    }
-
-
-//    @Override
-//    public Classes save(Classes classes) throws ClassExceptionHandler {
-//        Classes c=iclassesRepo.save(classes);
-//        return c;
-////        User user=repositoryUser.findById(classes.getUser().getId()).orElse(null);
-////        Course course= iclassesRepo.findById(classes.getCourse().getCourseId()).orElse(null).getCourse();
-////        if (user.getRole().equals(UserRole.TEACHER)) {
-////            classes.getUser().setId(user.getId());
-////            classes.getUser().setUserName(user.getUserName());
-////            classes.getUser().setPassword(user.getPassword());
-////            classes.getUser().setRole(user.getRole());
-////            classes.getCourse().setCourseId(course.getCourseId());
-////            classes.getCourse().setCourseName(course.getCourseName());
-////            classes.getCourse().setUser(course.getUser());
-////            classes.getCourse().setStartDate(course.getStartDate());
-////            classes.getCourse().setEndDate(course.getEndDate());
-////            Classes c = iclassesRepo.save(classes);
-////            return c;
-////        }else {
-////
-////            throw new ClassExceptionHandler();
-////        }
-//    }
-
     @Override
-    public String deleteById(int classId) {
-        if (iclassesRepo.findById(classId) != null) {
-            iclassesRepo.deleteById(classId);
-            return "Record Deleted";
-        }
+    public void deleteById(int classId) {
 
-        else {
-
-            return "Id not Found";
-        }
-
+        iclassesRepo.deleteById(classId);
     }
 
 

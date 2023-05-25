@@ -41,27 +41,6 @@ public class TeacherController {
         return "in teacher controller";
     }
 
-    @PostMapping("/addSub")
-    public Submission addSub(@RequestBody SubmCl submCl) throws SubExceptionHandler {
-        int studentId = submCl.getStudentId();
-        int assignId = submCl.getAssignId();
-        String grade=submCl.getGrade();
-        String feedback=submCl.getFeedback();
-        User u=userService.findById(studentId);
-        Assignment a=assignService.findById(assignId);
-        Submission submission=new Submission();
-        submission.setStudentId(u);
-        submission.setAssignId(a);
-        submission.setFeedback(feedback);
-        submission.setGrade(grade);
-        return submissionService.save(submission);
-    }
-
-
-//    @PostMapping('/addCourse')
-//    public Course addCourse(@RequestBody CourseCl courseCl){
-//
-//    }
 
     @DeleteMapping("/deleteAssign")
     public ResponseEntity<String> deleteById(@RequestParam int assignId){
@@ -70,13 +49,9 @@ public class TeacherController {
     }
     @DeleteMapping("/deleteClass/{classId}")
     public ResponseEntity<String> deleteClass(@PathVariable("classId") int classId){
-        if (iclassesRepo.findById(classId) != null) {
+
             classesService.deleteById(classId);
-            return  new ResponseEntity<String>("Record Deleted ", HttpStatus.OK);
-        }
-        else {
-            return  new ResponseEntity<String>("Record Not Deleted ", HttpStatus.NOT_FOUND);
-        }
+        return  new ResponseEntity<String>("Record Deleted ", HttpStatus.OK);
 
     }
 

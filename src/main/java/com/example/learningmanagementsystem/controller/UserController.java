@@ -105,21 +105,10 @@ public class UserController {
         return classes;
     }
     @PostMapping("/addClass")
-    Classes AddClass(@RequestBody ClassCl classCl) throws ClassExceptionHandler {
+    Classes AddClass(@RequestBody  ClassCl classCl) throws ClassExceptionHandler {
 //        Classes c=iClassesService.save(classes);
 //        return c;
-        int courseId=classCl.getCourseId();
-        int teacherId=classCl.getTeacherId();
-        Time startTime=classCl.getStartTime();
-        Time endTime=classCl.getEndTime();
-        Course c=iCourseService.findById(courseId);
-        User u=iUserService.findById(teacherId);
-        Classes classes=new Classes();
-        classes.setCourse(c);
-        classes.setUser(u);
-        classes.setStartTime(startTime);
-        classes.setEndTime(endTime);
-        return iClassesService.save(classes);
+        return iClassesService.save(classCl);
     }
 
     @GetMapping("/getAllEnroll")
@@ -168,10 +157,13 @@ public class UserController {
         return submissions;
     }
     @PostMapping("/addSub")
-    public Submission AddSub(Submission submission) throws SubExceptionHandler {
-        Submission c=iSubmissionService.save(submission);
+    public Submission AddSub(SubmCl submCl) throws SubExceptionHandler {
+        Submission c=iSubmissionService.save(submCl);
         return c;
     }
+
+
+
     @GetMapping("/{studentId}/grades")
     public List<Submission> getGradesByStudentId(@PathVariable("studentId") User student) {
         return iSubmissionService.getGradesByStudent(student);

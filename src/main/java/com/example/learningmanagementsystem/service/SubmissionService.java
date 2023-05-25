@@ -1,9 +1,12 @@
 package com.example.learningmanagementsystem.service;
 
 import com.example.learningmanagementsystem.Enum.UserRole;
+import com.example.learningmanagementsystem.dto.SubmCl;
 import com.example.learningmanagementsystem.exception.SubExceptionHandler;
+import com.example.learningmanagementsystem.model.Assignment;
 import com.example.learningmanagementsystem.model.Submission;
 import com.example.learningmanagementsystem.model.User;
+import com.example.learningmanagementsystem.repository.IAssignRepo;
 import com.example.learningmanagementsystem.repository.IRepositoryUser;
 import com.example.learningmanagementsystem.repository.ISubmissionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ public class SubmissionService implements ISubmissionService {
 
     @Autowired
     IRepositoryUser repositoryUser;
+    @Autowired
+     IAssignRepo iAssignRepo;
 
     @Override
     public List<Submission> getAllSub() {
@@ -26,17 +31,18 @@ public class SubmissionService implements ISubmissionService {
         return submissions;
     }
     @Override
-    public Submission save(Submission submission) throws SubExceptionHandler {
+    public Submission save(SubmCl submCl) throws SubExceptionHandler {
 //        Submission c=iSubmissionRepo.save(submission);
 //        return c;
-        User user=repositoryUser.findById(submission.getStudentId().getId()).orElse(null);
-        if (user.getRole().equals(UserRole.STUDENT)) {
-            submission.getStudentId().setId(user.getId());
-            submission.getStudentId().setUserName(user.getUserName());
-            submission.getStudentId().setPassword(user.getPassword());
-            submission.getStudentId().setRole(user.getRole());
-            Submission c = iSubmissionRepo.save(submission);
-            return c;
+        User user=repositoryUser.findById(submCl.getStudentId()).orElse(null);
+        Assignment assignment=iAssignRepo.findById(submCl.getAssignId()).orElse(null);
+       if (user.getRole().equals(UserRole.STUDENT)) {
+            Submission s=new Submission();
+            s.setAssignId(assignment);
+            s.setStudentId(user);
+            s.setGrade(submCl.getGrade());
+            s.setFeedback(submCl.getFeedback());
+            return iSubmissionRepo.save(s);
         }else {
 
             throw new SubExceptionHandler();
@@ -45,6 +51,7 @@ public class SubmissionService implements ISubmissionService {
 
     @Override
     public List<Submission> getGradesByStudent(User student) {
+
         return iSubmissionRepo.findByStudentId(student);
     }
 

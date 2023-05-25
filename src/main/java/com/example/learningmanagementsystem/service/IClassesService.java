@@ -1,5 +1,6 @@
 package com.example.learningmanagementsystem.service;
 
+import com.example.learningmanagementsystem.dto.ClassCl;
 import com.example.learningmanagementsystem.exception.ClassExceptionHandler;
 import com.example.learningmanagementsystem.model.Classes;
 
@@ -10,8 +11,10 @@ public interface IClassesService {
 
 //    Classes save(Classes classes) throws ClassExceptionHandler;
 
-    Classes save(Classes classes) throws ClassExceptionHandler;
+//    Classes save(Classes classes) throws ClassExceptionHandler;
 
-    String deleteById(int classId);
+    Classes save(ClassCl classCl) throws ClassExceptionHandler;
+
+    void deleteById(int classId);
 
 }
